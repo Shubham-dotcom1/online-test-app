@@ -35,9 +35,18 @@ app.use(
 
 app.use(express.json());
 
+// Health check endpoints
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date() });
+});
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date() });
 });
+
+// Support both /api/* and direct /* prefixes to prevent 404s
+app.use('/auth', authRoutes);
+app.use('/test', testRoutes);
+app.use('/admin', adminRoutes);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/test', testRoutes);
