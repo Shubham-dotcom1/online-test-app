@@ -21,9 +21,15 @@ export default function Login() {
       await login(email.trim(), password);
       navigate('/');
     } catch (err) {
-      setError(
-        err.response?.data?.message || 'Invalid email or password. Please try again.'
-      );
+      if (!err.response) {
+        setError(
+          'Cannot reach the backend server. If using Render free tier, the server may take ~45 seconds to wake up on initial request. Please wait a moment and try again.'
+        );
+      } else {
+        setError(
+          err.response.data?.message || 'Invalid email or password. Please try again.'
+        );
+      }
     } finally {
       setSubmitting(false);
     }
@@ -51,8 +57,8 @@ export default function Login() {
         </div>
 
         {error && (
-          <div className="mb-4 p-3 text-xs font-medium text-red-700 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
-            <span className="text-red-500 font-bold">✕</span>
+          <div className="mb-4 p-3 text-xs font-medium text-red-700 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2 leading-relaxed">
+            <span className="text-red-500 font-bold shrink-0">✕</span>
             <span>{error}</span>
           </div>
         )}

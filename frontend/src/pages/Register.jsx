@@ -21,7 +21,13 @@ export default function Register() {
       await register(name.trim(), email.trim(), password);
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed');
+      if (!err.response) {
+        setError(
+          'Cannot reach the backend server. If using Render free tier, the server may take ~45 seconds to wake up on initial request. Please wait a moment and try again.'
+        );
+      } else {
+        setError(err.response.data?.message || 'Registration failed');
+      }
     } finally {
       setSubmitting(false);
     }
@@ -47,7 +53,7 @@ export default function Register() {
         </p>
 
         {error && (
-          <div className="mb-4 p-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded">
+          <div className="mb-4 p-3 text-xs font-medium text-red-700 bg-red-50 border border-red-200 rounded leading-relaxed">
             {error}
           </div>
         )}
@@ -109,7 +115,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white text-sm font-medium py-2 rounded"
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white text-sm font-medium py-2 rounded transition"
           >
             {submitting ? 'Creating account...' : 'Sign up'}
           </button>
