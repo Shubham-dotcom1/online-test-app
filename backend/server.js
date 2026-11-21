@@ -17,7 +17,14 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin) return callback(null, true);
+      const cleanOrigin = origin.replace(/\/$/, '');
+      const isAllowed =
+        allowedOrigins.some((o) => o.replace(/\/$/, '') === cleanOrigin) ||
+        origin.endsWith('.vercel.app') ||
+        origin.endsWith('.onrender.com');
+
+      if (isAllowed) {
         return callback(null, true);
       }
       return callback(new Error('Not allowed by CORS'));
@@ -29,7 +36,7 @@ app.use(
 app.use(express.json());
 
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok' });
+  res.json({ status: 'ok', timestamp: new Date() });
 });
 
 app.use('/api/auth', authRoutes);
