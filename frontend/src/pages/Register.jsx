@@ -21,9 +21,11 @@ export default function Register() {
       await register(name.trim(), email.trim(), password);
       navigate('/');
     } catch (err) {
+      console.error('Registration error:', err);
+      const targetUrl = (err.config?.baseURL || '') + (err.config?.url || '');
       if (!err.response) {
         setError(
-          'Cannot reach the backend server. If using Render free tier, the server may take ~45 seconds to wake up on initial request. Please wait a moment and try again.'
+          `Cannot connect to backend server at [${targetUrl || 'unknown URL'}]. Cause: ${err.message || 'Network Error'}. Please check if your Render backend is Live.`
         );
       } else {
         setError(err.response.data?.message || 'Registration failed');
@@ -53,13 +55,12 @@ export default function Register() {
         </p>
 
         {error && (
-          <div className="mb-4 p-3 text-xs font-medium text-red-700 bg-red-50 border border-red-200 rounded leading-relaxed">
+          <div className="mb-4 p-3 text-xs font-medium text-red-700 bg-red-50 border border-red-200 rounded leading-relaxed break-all">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} autoComplete="off" className="space-y-4">
-          {/* Hidden inputs to prevent aggressive browser autofill */}
           <input type="text" name="fake_user" style={{ display: 'none' }} tabIndex="-1" />
           <input type="password" name="fake_pass" style={{ display: 'none' }} tabIndex="-1" />
 
