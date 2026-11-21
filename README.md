@@ -175,14 +175,10 @@ npm run dev
 
 ---
 
-## Default Credentials (After Seeding)
+## User Roles & Access
 
-| Role | Email | Password | Access Level |
-|---|---|---|---|
-| **Student** | `student@example.com` | `password123` | Take tests, view scorecard & history |
-| **Admin** | `admin@example.com` | `password123` | Question bank management & audit logs |
-
-*(New student accounts can also be created freely through the Sign Up page).*
+- **Student:** Can register via the Sign Up page, take randomized timed assessments, view scorecards, and review previous attempts.
+- **Admin:** Manages the question pool, monitors platform statistics, and reviews student submission logs. Admin access is controlled via the `role: 'admin'` attribute in the database.
 
 ---
 
