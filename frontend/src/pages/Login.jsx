@@ -27,6 +27,14 @@ export default function Login() {
         setError(
           `Cannot connect to backend server at [${targetUrl || 'unknown URL'}]. Cause: ${err.message || 'Network Error'}. Please check if your Render backend is Live.`
         );
+      } else if (err.response.status === 404) {
+        setError(
+          `Backend returned 404 Not Found at [${targetUrl}]. The Render backend service is not running or deploying. Please verify your Render service is Live.`
+        );
+      } else if (err.response.status >= 500) {
+        setError(
+          `Backend error (${err.response.status}): ${err.response.data?.message || 'Server error. Please check Render backend logs.'}`
+        );
       } else {
         setError(
           err.response.data?.message || 'Invalid email or password. Please try again.'
