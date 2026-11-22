@@ -1,5 +1,7 @@
 # Online Test Portal (MERN Stack)
 
+🚀 **Live Application:** [Online Test Portal](https://online-test-app-nine.vercel.app/)
+
 A modern, full-stack Computer Science & Technical MCQ assessment platform built with MongoDB, Express.js, React (Vite + Tailwind CSS), and Node.js.
 
 Designed with a clean, high-contrast, light-mode interface modeled after internal corporate and university evaluation systems.
@@ -87,6 +89,14 @@ online-test-app/
             ├── History.jsx
             └── Admin.jsx
 ```
+
+---
+
+## Live Deployment
+
+- **Frontend (Vercel):** [Online Test Portal](https://online-test-app-nine.vercel.app/)
+- **Backend (Render):** `https://online-test-app-6l12.onrender.com`
+- **Database:** MongoDB Atlas Cloud
 
 ---
 
